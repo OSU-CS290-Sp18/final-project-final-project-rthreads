@@ -1,0 +1,63 @@
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	text-decoration: none;
+	color: #262626;
+}
+
+.site-title {
+	display: block;
+	float: none;
+	width: 100%;
+	text-align: center;
+	margin: 0;
+	font-size: 60px;
+	color: #6b2390;
+	background-color: #262626;	
+}
+
+.navbar {
+	background-color: #6b2390;
+	font-size: 30px;
+	line-height: 50px;
+	font-weight: bold;
+	text-align: justify;
+}
+
+.navlist {
+	padding: 0;
+	margin: 0;
+	text-align: justify;
+	border: 1px solid #262626;
+}
+
+.navlist:after {
+	content: '';
+	display: inline-block;
+	width: 100%;
+}
+
+.navlist li {
+	display: inline-block;
+}
+
+
+/*
+.score-container {
+	margin: 50px 10%;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.scoreboard {
+	border: 1px solid #262626;
+	font-size: 40px;
+	
+	margin: 0 auto;
+	text-align: center;
+	vertical-align: middle;
+}
+*/
