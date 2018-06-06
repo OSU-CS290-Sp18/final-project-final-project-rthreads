@@ -8,6 +8,11 @@ a {
 	color: #000000;
 }
 
+a:hover {
+	text-decoration: none;
+	color: #e6e6ff;
+}
+
 .site-title {
 	float: none;
 	width: 100%;
@@ -67,18 +72,44 @@ a {
 	font-size: 50px;
 }
 
-.score-container {
-	display: flex;
-	flex-wrap: wrap;
-	border: 1px solid yellow;
-	margin: 20px 0 0 0;
-}
-
 .scoreboard {
-	border: 1px solid #262626;
-	font-size: 35px;
-	margin: 0 auto;
 	text-align: center;
-	vertical-align: middle;
+	vertical-align: middle;	
+	font-size: 45px;
+	color: #6b2390;
+	background-color: #000000;
+	margin: 0 auto;
+	width: 50%;
+		
 }
 
+p {
+	display: inline-block;
+}
+
+.team-one-name {
+	border: 2px solid #6b2390;
+	width: 50%;
+}
+
+.team-two-name {
+	border: 2px solid #6b2390;
+	width: 50%;
+}
+
+.team-one-score {
+	border: 2px solid #6b2390;
+	width: 20%;
+}
+
+.team-two-score {
+	border: 2px solid #6b2390;
+	width: 20%;
+}
+
+.thread-icon {
+	text-align: center;
+	direction: rt1;	
+	background-color: #6b2390;
+
+}
