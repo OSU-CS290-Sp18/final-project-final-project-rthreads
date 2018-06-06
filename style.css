@@ -107,7 +107,7 @@ p {
 	width: 20%;
 }
 
-.thread-icon {
+#thread-icon {
 	text-align: center;
 	direction: rt1;	
 	background-color: #6b2390;
@@ -118,8 +118,14 @@ p {
 	display: none;
 }
 
-.chat-container {
-
+#chat-container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1010;
+  overflow: scroll;
 }
 
 .container {
@@ -148,3 +154,15 @@ p {
     float: right;
     color: #aaa;
 }
+
+#thread-backdrop {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.90);
+}
+
+
