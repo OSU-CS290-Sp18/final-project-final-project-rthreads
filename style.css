@@ -1,6 +1,6 @@
 html, body {
 	margin: 0;
-	background-color: #e6e6ff; 
+	background-color: #e6e6ff;
 }
 
 a {
@@ -126,12 +126,11 @@ p {
 
 #chat-container {
 	position: fixed;
-	top: 20px;
+	top: 40px;
 	bottom: 0;
 	left: 0;
 	right: 0;
 	z-index: 1010;
-	overflow: scroll;
 }
 
 .container {
@@ -140,7 +139,8 @@ p {
   	border-radius: 5px;
 	padding: 10px;
 	margin: 3px auto;
-	width: 75%;	
+	width: 75%;
+	min-height: 50px;
 }
 
 .container::after {
@@ -156,6 +156,13 @@ p {
 	margin-right: 20px;
 	border-radius: 50%;
 }
+
+.comments {
+	height: 200px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
 
 .time {
 	float: right;
@@ -217,4 +224,10 @@ p {
 	border: 1px solid #6b2390;
 	background-color: white;
 	margin: 0 0 0 10px;
+}
+
+label {
+	margin: 15px 0 0 0;
+	float: left;
+	font-size: 20px;
 }
