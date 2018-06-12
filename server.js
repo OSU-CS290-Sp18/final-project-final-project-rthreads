@@ -1,6 +1,7 @@
 var path = require('path');
 var express = require('express');
 var exphbs = require('express-handlebars');
+var MongoClient = require('mongodb').MongoClient;
 var app = express();
 
 var port = process.env.PORT || 3000;

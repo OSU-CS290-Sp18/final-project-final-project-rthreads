@@ -16,14 +16,26 @@ function closeChat(event) {
 	threadBackdrop.style.display = "none";
 }
 
-function teamsMatchesSearchQuery(teams, searchQuery) {
+function parseTeamElem(teamElem) {
+	var team = {};
+	var teamOneTextElem = teamElem.querySelector('.team-one-name');
+	team.text = teamOneTextElem.textContent.trim();
+
+	var teamTwoTextElem = teamElem.querySelector('.team-two-name');
+	team.text = teamOneTextElem.textContent.trim();
+
+	return team;
+}
+
+
+function teamsMatchesSearchQuery(scoreboard, searchQuery) {
 
   if (!searchQuery) {
     return true;
   }
 
   searchQuery = searchQuery.trim().toLowerCase();
-  return (teams.name + " " + teams.score).toLowerCase().indexOf(searchQuery) >= 0;
+  return (scoreboard.team-one-name + " " + scoreboard.team-two-name).toLowerCase().indexOf(searchQuery) >= 0;
 }
 
 function doSearchUpdate(){
@@ -35,20 +47,26 @@ function doSearchUpdate(){
       scoreContainer.removeChild(scoreContainer.lastChild);
     }
   }
+  
+}
 
+
+function clearSearchAndReinsertTwits() {
+	document.getElementById('navbar-search-input').value = "";
+	doSearchUpdate();
 }
 
 window.addEventListener('DOMContentLoaded', function () {
 
   var teamsElemsCollection = document.getElementsByClassName('teams');
   for (var i = 0; i < teamsElemsCollection.length; i++) {
-    allTeams.push(parseTeamElem(twitTeamsCollection[i]));
+    allTeams.push(parseTeamElem(teamsElemsCollection[i]));
   }
-var threadButton = document.getElementbyId('thread-icon');
+//var threadButton = document.getElementbyId('thread-icon');
 	if(threadButton){
 		threadButton.addEventListener('click', showChat);
 	}
-var closeButton = document.getElementbyID('chat-close-bottom');
+//var closeButton = document.getElementbyID('chat-close-bottom');
 	if(closeButton){
 		closeButton.addEventListener('click', closeChat);
 	}
