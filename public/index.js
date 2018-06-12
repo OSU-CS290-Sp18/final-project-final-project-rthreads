@@ -1,7 +1,7 @@
 var chatText = document.getElementById("chat-text-input");
 var threadBackdrop = document.getElementById("thread-backdrop");
 var chatContainer = document.getElementById("chat-container"); 
-var threadButton = document.getElementById("thread-icon");
+var threadButton = document.getElementById("thread-icon");  
 var closeButton = document.getElementsByClassName("chat-close-button")[0];
 
 function showChat(event) {

@@ -1,0 +1,19 @@
+<div id="thread-backdrop" class="hidden"></div/>
+<div id="chat-container" class="hidden">
+	<div class="comments">
+		{{#each messages}}
+			{{>message}}
+		{{/each}}
+	</div>
+	<div class="chat-body">
+		<div class="chat-input-element">
+			<label for="chat-text-input">Message</label>
+				<textarea id="chat-text-input"></textarea>
+		</div>
+
+	</div>
+	<div class="chat-footer">
+		<button type="button" class="chat-close-button">Close</button>
+		<button type="button" class="chat-accept-button">Send Message</button>
+	</div>
+</div>
