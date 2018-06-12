@@ -10,8 +10,8 @@ app.set('view engine', 'handlebars');
 
 var scoreboards = require('./scoreboards');
 var header = require('./views/partials/header');
-var header2 = require('views/partials/header2');
-var thread = require('views/partials/thread');
+var header2 = require('./views/partials/header2');
+var thread = require('./views/partials/thread');
 
 app.get('/', function(req, res, next) {
 	res.status(200).render('homePage', {
@@ -73,3 +73,4 @@ app.get('*', function (req, res) {
 
 app.listen(port, function() {
 	console.log("== Server is listening on port", port);
+});
