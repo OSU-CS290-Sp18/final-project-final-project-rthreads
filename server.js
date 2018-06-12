@@ -1,83 +1,75 @@
-var http = require('http');
-var fs = require('fs');
+var path = require('path');
+var express = require('express');
+var exphbs = require('express-handlebars');
+var app = express();
 
-const PORT = process.env.PORT || 3000;
+var port = process.env.PORT || 3000;
 
-var content;
-var style;
-var interaction;
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
 
-fs.readFile('./public/index.html', function(err, data) {
-	if (err) {
-		throw err;
-	}
-	content = data;
-	console.log("index.html file has been read");
+var scoreboards = require('./scoreboards');
+var header = require('./views/partials/header');
+var header2 = require('views/partials/header2');
+var thread = require('views/partials/thread');
+
+app.get('/', function(req, res, next) {
+	res.status(200).render('homePage', {
+		scoreboards: [scoreboards[0]],
+		header: header,
+		header2: header2,
+		thread: thread
+		});
 });
 
-fs.readFile('./public/index.js', function(err, data) {
-	if (err) {
-		throw err;
-	}
-	interaction = data;
-	console.log("index.js file has been read");
+app.use(express.static('public'));
+
+app.get('/nfl', function(req, res, next) {
+	res.status(200).render('homePage', {
+		scoreboards: scoreboards,
+		header: header,
+		thread: thread
+		});
 });
 
-fs.readFile('./public/style.css', function(err, data) {
-	if (err) {
-		throw err;
-	}	
-	style = data;
-	console.log("style.css file has been read");
+
+app.get('/nba', function(req, res, next) {
+	res.status(200).render('homePage', {
+		scoreboards: scoreboards,
+		header: header,
+		thread: thread
+		});
 });
 
-var server = http.createServer(function(req, res) {
-	if(req.url === '/index.html') {
-			switch (req.url) {
-				case "/style.css":
-				res.writeHead(200, {"Content-Type": "text/css"});
-				res.write(style);
-				break;
-				
-				default: 
-				res.writeHead(200, {"Content-Type": "text/html"});
-				res.write(content);
-			}
-			res.end();
-		}
-		
-		else if(req.url === '/') {
-			switch (req.url) {
-				case "/style.css":
-				res.writeHead(200, {"Content-Type": "text/css"});
-				res.write(style);
-				break;
-				
-				default: 
-				res.writeHead(200, {"Content-Type": "text/html"});
-				res.write(content);
-			}
-			res.end();
-		}
-
-
-		else if (req.url === '/index.js') {
-			res.statusCode = 200;	
-			res.write(interaction, function(err) {
-			res.end();
-			});
-		}		
-
-
-		else if (req.url === '/style.css') {
-			res.statusCode = 200;
-			res.write(style, function(err) {	
-			res.end();
-			});
-		}
-	res.end();
+app.get('/mlb', function(req, res, next) {
+	res.status(200).render('homePage', {
+		scoreboards: scoreboards,
+		header: header,
+		thread: thread
+		});
 });
-	server.listen(PORT, () => {
-		console.log('== Server is listening on port', PORT);
-	});
 
+app.get('/mls', function(req, res, next) {
+	res.status(200).render('homePage', {
+		scoreboards: scoreboards,
+		header: header,
+		thread: thread
+		});
+});
+
+app.get('/nhl', function(req, res, next) {
+	res.status(200).render('homePage', {
+		scoreboards: scoreboards,
+		header: header,
+		thread: thread
+		});
+});
+
+app.get('*', function (req, res) {
+  res.status(404).render('404', {
+    	header: header
+		});
+});
+
+app.listen(port, function() {
+	console.log("== Server is listening on port", port);
