@@ -16,17 +16,10 @@ function closeChat(event) {
 	threadBackdrop.style.display = "none";
 }
 
-function parseTeamElem(teamElem) {
-	var team = {};
-	var teamOneTextElem = teamElem.querySelector('.team-one-name');
-	team.text = teamOneTextElem.textContent.trim();
-
-	var teamTwoTextElem = teamElem.querySelector('.team-two-name');
-	team.text = teamOneTextElem.textContent.trim();
-
-	return team;
+function clearSearchAndReinsertTwits() {
+	document.getElementById('navbar-search-input').value = "";
+	doSearchUpdate();
 }
-
 
 function teamsMatchesSearchQuery(scoreboard, searchQuery) {
 
@@ -47,18 +40,18 @@ function doSearchUpdate(){
       scoreContainer.removeChild(scoreContainer.lastChild);
     }
   }
-  
 }
 
-
-function clearSearchAndReinsertTwits() {
-	document.getElementById('navbar-search-input').value = "";
-	doSearchUpdate();
+function parseTeamElem(scoreboardElem) {
+	var scoreboard = {};
+	var scoreboardTextElem = scoreboardElem.querySelector('.scoreboard-text');
+	scoreboard.text = scoreboardTextElem.textContent.trim();
+	return scoreboard;
 }
 
 window.addEventListener('DOMContentLoaded', function () {
 
-  var teamsElemsCollection = document.getElementsByClassName('teams');
+  var scoreboardElemsCollection = document.getElementsByArticle('scoreboard');
   for (var i = 0; i < teamsElemsCollection.length; i++) {
     allTeams.push(parseTeamElem(teamsElemsCollection[i]));
   }
@@ -70,7 +63,7 @@ window.addEventListener('DOMContentLoaded', function () {
 	if(closeButton){
 		closeButton.addEventListener('click', closeChat);
 	}
-var searchButton = document.getElementById('navbar-search-button');
+	var searchButton = document.getElementById('navbar-search-button');
   if (searchButton) {
     searchButton.addEventListener('click', doSearchUpdate);
   }
