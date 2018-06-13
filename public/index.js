@@ -1,4 +1,4 @@
-var allTeams = [];
+var allScoreboards = [];
 var chatText = document.getElementById("chat-text-input");
 var threadBackdrop = document.getElementById("thread-backdrop");
 var chatContainer = document.getElementById("chat-container");
@@ -44,16 +44,16 @@ function doSearchUpdate(){
 
 function parseTeamElem(scoreboardElem) {
 	var scoreboard = {};
-	var scoreboardTextElem = scoreboardElem.querySelector('.scoreboard-text');
+	var scoreboardTextElem = scoreboardElem.querySelector('.team-one-name');
 	scoreboard.text = scoreboardTextElem.textContent.trim();
 	return scoreboard;
 }
 
 window.addEventListener('DOMContentLoaded', function () {
 
-  var scoreboardElemsCollection = document.getElementsByArticle('scoreboard');
-  for (var i = 0; i < teamsElemsCollection.length; i++) {
-    allTeams.push(parseTeamElem(teamsElemsCollection[i]));
+  var scoreboardElemsCollection = document.getElementsByClassName('scoreboard');
+  for (var i = 0; i < scoreboardElemsCollection.length; i++) {
+    allScoreboards.push(parseScoreboardElem(scoreboardElemsCollection[i]));
   }
 //var threadButton = document.getElementbyId('thread-icon');
 	if(threadButton){
@@ -68,7 +68,7 @@ window.addEventListener('DOMContentLoaded', function () {
     searchButton.addEventListener('click', doSearchUpdate);
   }
 
-  var searchInput = document.getElementById('navbar-search-input');
+  var searchInput = document.getElementsById('navbar-search-input');
   if (searchInput) {
     searchInput.addEventListener('input', doSearchUpdate);
   }
