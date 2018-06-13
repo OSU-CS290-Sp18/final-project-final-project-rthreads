@@ -1,4 +1,3 @@
-var allScoreboards = [];
 var chatText = document.getElementById("chat-text-input");
 var threadBackdrop = document.getElementById("thread-backdrop");
 var chatContainer = document.getElementById("chat-container");
@@ -16,60 +15,90 @@ function closeChat(event) {
 	threadBackdrop.style.display = "none";
 }
 
-function clearSearchAndReinsertTwits() {
+function insertNewScoreboard(teamOneName, teamOneScore, teamTwoName, teamTwoScore){
+	var scoreboardTemplate = Handlebars.templates.scoreBoard;
+	var scoreboardHTML = scoreboardTemplate ({
+		teamOneName: teamOneName,
+		teamOneScore: teamOneScore,
+		teamTwoName: teamTwoName,
+		teamTwoScore: teamTwoScore
+	});
+
+	var scoreContainer = document.querySelector('.score-container');
+	scoreContainer.insertAdjacentHTML('beforeend', scoreboardHTML);
+}
+
+var allTeams = [];
+
+function clearSearchAndReinsertScoreboards() {
 	document.getElementById('navbar-search-input').value = "";
 	doSearchUpdate();
 }
 
-function teamsMatchesSearchQuery(scoreboard, searchQuery) {
+function scoreboardMatchesSearchQuery(scoreboard, searchQuery) {
+	if(!searchQuery) {
+		return true;
+	}
 
-  if (!searchQuery) {
-    return true;
-  }
-
-  searchQuery = searchQuery.trim().toLowerCase();
-  return (scoreboard.team-one-name + " " + scoreboard.team-two-name).toLowerCase().indexOf(searchQuery) >= 0;
+	searchQuery = searchQuery.trim().toLowerCase();
+	
+	return (scoreboard.teamOneName + " " + scoreboard.teamTwoName).toLowerCase().indexOf(searchQuery) >= 0;
 }
 
-function doSearchUpdate(){
+function doSearchUpdate() {
 	var searchQuery = document.getElementById('navbar-search-input').value;
 
-  var scoreContainer = document.querySelector('.score-container');
-  if (scoreContainer) {
-    while (scoreContainer.lastChild) {
-      scoreContainer.removeChild(scoreContainer.lastChild);
-    }
-  }
+	var scoreContainer = document.querySelector('.score-container');
+
+	if(scoreContainer) {
+		while(scoreContainer.lastChild) {
+			scoreContainer.removeChild(scoreContainer.lastChild);
+		}
+	}
+
+	allTeams.forEach(function (scoreboard) {
+		if(scoreboardMatchesSearchQuery(scoreboard, searchQuery)) {
+			insertNewScoreboard(scoreboard.teamOneName, scoreboard.teamOneScore, scoreboard.teamTwoName, scoreboard.teamTwoScore);
+		}
+	});
 }
 
-function parseTeamElem(scoreboardElem) {
+function parseScoreboardElem(scoreboardElem) {
 	var scoreboard = {};
+
 	var scoreboardTextElem = scoreboardElem.querySelector('.team-one-name');
-	scoreboard.text = scoreboardTextElem.textContent.trim();
+	scoreboard.teamOneName = scoreboardTextElem.textContent.trim();
+	
+	var scoreboardScoreElem = scoreboardElem.querySelector('.team-one-score');
+	scoreboard.teamOneScore = scoreboardScoreElem.textContent.trim();
+
+	var scoreboardText2Elem = scoreboardElem.querySelector('.team-two-name');
+	scoreboard.teamTwoName = scoreboardText2Elem.textContent.trim();
+
+	var scoreboardScore2Elem = scoreboardElem.querySelector('.team-two-score');
+	scoreboard.teamTwoScore = scoreboardScore2Elem.textContent.trim();
+
 	return scoreboard;
 }
 
+
+
+
 window.addEventListener('DOMContentLoaded', function () {
 
-  var scoreboardElemsCollection = document.getElementsByClassName('scoreboard');
-  for (var i = 0; i < scoreboardElemsCollection.length; i++) {
-    allScoreboards.push(parseScoreboardElem(scoreboardElemsCollection[i]));
-  }
-//var threadButton = document.getElementbyId('thread-icon');
-	if(threadButton){
-		threadButton.addEventListener('click', showChat);
+var scoreboardElemsCollection = document.getElementsByClassName('scoreboard');
+	for(var i = 0; i < scoreboardElemsCollection.length; i++) {
+		allTeams.push(parseScoreboardElem(scoreboardElemsCollection[i]));
 	}
-//var closeButton = document.getElementbyID('chat-close-bottom');
-	if(closeButton){
-		closeButton.addEventListener('click', closeChat);
-	}
-	var searchButton = document.getElementById('navbar-search-button');
-  if (searchButton) {
-    searchButton.addEventListener('click', doSearchUpdate);
-  }
 
-  var searchInput = document.getElementsById('navbar-search-input');
-  if (searchInput) {
-    searchInput.addEventListener('input', doSearchUpdate);
-  }
+
+var searchButton = document.getElementById('navbar-search-button');
+	if (searchButton) {
+	searchButton.addEventListener('click', doSearchUpdate);
+	}
+var searchInput = document.getElementById('navbar-search-input');
+
+	if (searchInput) {
+		searchInput.addEventListener('input', doSearchUpdate);
+	}
 });

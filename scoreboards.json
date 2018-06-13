@@ -1,23 +1,23 @@
 [
 	{
-		"team-one-name": "Blazers",
-		"team-one-score": "112",
-		"team-two-name": "Warriors",
-		"team-two-score": "7"
+		"teamOneName": "Blazers",
+		"teamOneScore": "112",
+		"teamTwoName": "Warriors",
+		"teamTwoScore": "7"
 	},
 
 	{	
-		"team-one-name": "Thunder",
-		"team-one-score": "98",
-		"team-two-name": "Lakers",
-		"team-two-score": "110"
+		"teamOneName": "Thunder",
+		"teamOneScore": "98",
+		"teamTwoName": "Lakers",
+		"teamTwoScore": "110"
 	},
 
 	{
-		"team-one-name": "Kings",
-		"team-one-score": "120",
-		"team-two-name": "Spurs",
-		"team-two-score": "121"
+		"teamOneName": "Kings",
+		"teamOneScore": "120",
+		"teamTwoName": "Spurs",
+		"teamTwoScore": "121"
 	}
 ]
 
