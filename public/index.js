@@ -101,4 +101,13 @@ var searchInput = document.getElementById('navbar-search-input');
 	if (searchInput) {
 		searchInput.addEventListener('input', doSearchUpdate);
 	}
+
+	if (threadButton) {
+		threadButton.addEventListener('click', showChat);
+	}
+	
+	if (closeButton) {
+		closeButton.addEventListener('click', closeChat);
+	}
+
 });

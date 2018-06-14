@@ -9,6 +9,7 @@ var port = process.env.PORT || 3000;
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
+var messages = require('./messages');
 var scoreboards = require('./scoreboards');
 var header = require('./views/partials/header');
 var header2 = require('./views/partials/header2');
@@ -19,7 +20,7 @@ app.get('/', function(req, res, next) {
 		scoreboards: [scoreboards[0]],
 		header: header,
 		header2: header2,
-		thread: thread
+		messages: messages
 		});
 });
 
@@ -29,7 +30,7 @@ app.get('/nfl', function(req, res, next) {
 	res.status(200).render('homePage', {
 		scoreboards: scoreboards,
 		header: header,
-		thread: thread
+		messages: messages
 		});
 });
 
@@ -38,7 +39,7 @@ app.get('/nba', function(req, res, next) {
 	res.status(200).render('homePage', {
 		scoreboards: scoreboards,
 		header: header,
-		thread: thread
+		messages: messages
 		});
 });
 
@@ -46,7 +47,7 @@ app.get('/mlb', function(req, res, next) {
 	res.status(200).render('homePage', {
 		scoreboards: scoreboards,
 		header: header,
-		thread: thread
+		messages: messages
 		});
 });
 
@@ -54,7 +55,7 @@ app.get('/mls', function(req, res, next) {
 	res.status(200).render('homePage', {
 		scoreboards: scoreboards,
 		header: header,
-		thread: thread
+		messages: messages
 		});
 });
 
@@ -62,7 +63,7 @@ app.get('/nhl', function(req, res, next) {
 	res.status(200).render('homePage', {
 		scoreboards: scoreboards,
 		header: header,
-		thread: thread
+		messages: messages
 		});
 });
 
