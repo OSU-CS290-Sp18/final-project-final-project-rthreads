@@ -4,7 +4,7 @@ var exphbs = require('express-handlebars');
 var MongoClient = require('mongodb').MongoClient;
 var app = express();
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 27017;
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
