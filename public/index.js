@@ -3,6 +3,7 @@ var threadBackdrop = document.getElementById("thread-backdrop");
 var chatContainer = document.getElementById("chat-container");
 var threadButton = document.getElementById("thread-icon");
 var closeButton = document.getElementsByClassName("chat-close-button")[0];
+var chatAccept = document.getElementsByClassName("chat-accept-button")[0];
 
 function showChat(event) {
 	chatContainer.style.display = "block";
@@ -41,7 +42,7 @@ function scoreboardMatchesSearchQuery(scoreboard, searchQuery) {
 	}
 
 	searchQuery = searchQuery.trim().toLowerCase();
-	
+
 	return (scoreboard.teamOneName + " " + scoreboard.teamTwoName).toLowerCase().indexOf(searchQuery) >= 0;
 }
 
@@ -68,7 +69,7 @@ function parseScoreboardElem(scoreboardElem) {
 
 	var scoreboardTextElem = scoreboardElem.querySelector('.team-one-name');
 	scoreboard.teamOneName = scoreboardTextElem.textContent.trim();
-	
+
 	var scoreboardScoreElem = scoreboardElem.querySelector('.team-one-score');
 	scoreboard.teamOneScore = scoreboardScoreElem.textContent.trim();
 
@@ -81,8 +82,24 @@ function parseScoreboardElem(scoreboardElem) {
 	return scoreboard;
 }
 
+function insertNewMessage(){
+	var messageText = document.getElementById('chat-text-input').value;
+	var messageTime = new Date();
+	messageTime.getHours();
+	messageTime.getMinutes();
+	messageTime.getSeconds();
+	var messageTemplate = Handlebars.templates.message;
+	console.log(messageTime);
+	console.log(messageText);
+	var newMessageHTML = messageTemplate ({
+		text : messageText,
+		time: messageTime
+	});
+	var chatContainer = document.querySelector('.comments');
+  chatContainer.insertAdjacentHTML('beforeend', newMessageHTML);
+	document.getElementById('chat-text-input').value = " ";
 
-
+}
 
 window.addEventListener('DOMContentLoaded', function () {
 
@@ -90,7 +107,6 @@ var scoreboardElemsCollection = document.getElementsByClassName('scoreboard');
 	for(var i = 0; i < scoreboardElemsCollection.length; i++) {
 		allTeams.push(parseScoreboardElem(scoreboardElemsCollection[i]));
 	}
-
 
 var searchButton = document.getElementById('navbar-search-button');
 	if (searchButton) {
@@ -105,7 +121,11 @@ var searchInput = document.getElementById('navbar-search-input');
 	if (threadButton) {
 		threadButton.addEventListener('click', showChat);
 	}
-	
+
+	if (chatAccept) {
+		chatAccept.addEventListener('click', insertNewMessage);
+	}
+
 	if (closeButton) {
 		closeButton.addEventListener('click', closeChat);
 	}
