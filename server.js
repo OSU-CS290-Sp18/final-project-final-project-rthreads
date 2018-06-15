@@ -28,7 +28,6 @@ app.use(bodyParser.json());
 var header = require('./views/partials/header');
 var header2 = require('./views/partials/header2');
 var thread = require('./views/partials/thread');
-app.use(express.static('public'));
 
 app.get('/', function(req, res, next) {
     var games = mongoDB.collection('nbaGames');
@@ -51,6 +50,8 @@ app.get('/', function(req, res, next) {
     });
 });
 
+
+app.use(express.static('public'));
 
 app.get('/nfl', function (req, res, next) {
     var games = mongoDB.collection('nflGames');
@@ -158,8 +159,7 @@ app.post('/', function (req, res, next) {
             time: req.body.time
         };
         var messagesCollection = mongoDB.collection('messages');
-        messagesCollection.insertOne(message,
-            function (err, result) {
+        messagesCollection.insertOne(message, function (err, result) {
                 if (err) {
                     res.status(500).send("Error inserting message into DB.")
                 } else {

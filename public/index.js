@@ -105,7 +105,7 @@ function sendMessage() {
 
 	request.addEventListener('load', function (event) {
 		console.log(event.target.status);
-		if (event.target.status === 200) {
+		if (event.target.status == 200) {
 			var messageTemplate = Handlebars.templates.message;
 			var newMessageHTML = messageTemplate({
 				text: text,
@@ -118,9 +118,10 @@ function sendMessage() {
 		}
 
 	});
+	
+	document.getElementById('chat-text-input').value = "";
 	request.setRequestHeader('Content-Type', 'application/json');
 	request.send(requestBody);
-	document.getElementById('chat-text-input').value = "";
 	}
 }
 
