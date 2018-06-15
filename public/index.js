@@ -96,7 +96,7 @@ function sendMessage() {
 	var request = new XMLHttpRequest();
 	var url = "/";
 
-	request.open("POST", url);
+	request.open('POST', url);
 
 	var requestBody = JSON.stringify({
 		text: text,
@@ -104,6 +104,7 @@ function sendMessage() {
 	});
 
 	request.addEventListener('load', function (event) {
+		console.log(event.target.status);
 		if (event.target.status === 200) {
 			var messageTemplate = Handlebars.templates.message;
 			var newMessageHTML = messageTemplate({
@@ -119,7 +120,7 @@ function sendMessage() {
 	});
 	request.setRequestHeader('Content-Type', 'application/json');
 	request.send(requestBody);
-	console.log(requestBody);
+	document.getElementById('chat-text-input').value = "";
 	}
 }
 

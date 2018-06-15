@@ -2,7 +2,7 @@ var path = require('path');
 var express = require('express');
 var exphbs = require('express-handlebars');
 var MongoClient = require('mongodb').MongoClient;
-var bodyParser = require ('body-parser');
+var bodyParser = require('body-parser');
 var app = express();
 
 var mongoHost = "classmongo.engr.oregonstate.edu";
@@ -28,6 +28,7 @@ app.use(bodyParser.json());
 var header = require('./views/partials/header');
 var header2 = require('./views/partials/header2');
 var thread = require('./views/partials/thread');
+app.use(express.static('public'));
 
 app.get('/', function(req, res, next) {
     var games = mongoDB.collection('nbaGames');
@@ -50,7 +51,6 @@ app.get('/', function(req, res, next) {
     });
 });
 
-app.use(express.static('public'));
 
 app.get('/nfl', function (req, res, next) {
     var games = mongoDB.collection('nflGames');
