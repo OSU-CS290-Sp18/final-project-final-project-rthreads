@@ -41,7 +41,7 @@ app.get('/', function(req, res, next) {
 
         else {
             res.status(200).render('homePage', {
-                scoreboards: nbaGames[0],
+                scoreboards: [nbaGames[0]],
                 header: header,
                 header2: header2,
                 messages: messages
@@ -49,6 +49,8 @@ app.get('/', function(req, res, next) {
         }
     });
 });
+
+app.use(express.static('public'));
 
 app.get('/nfl', function (req, res, next) {
     var games = mongoDB.collection('nflGames');
@@ -129,7 +131,6 @@ app.get('/nhl', function (req, res, next) {
         if (err) {
             res.status(500).send("Error fetching games from DB");
         }
-
         else {
             res.status(200).render('homePage', {
                 scoreboards: nhlGames,
@@ -139,6 +140,13 @@ app.get('/nhl', function (req, res, next) {
         }
     });
 });
+
+app.use('*', function (req, res, next) {
+	res.status(404).render('404', {
+		header: header
+	});
+});
+
 /*
 app.post('/', function (req, res, next) {
     var message = req.params.person.toLowerCase();
