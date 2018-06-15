@@ -82,21 +82,22 @@ function parseScoreboardElem(scoreboardElem) {
 	return scoreboard;
 }
 
+
+
+
 function insertNewMessage(){
 	var messageText = document.getElementById('chat-text-input').value;
 	var messageTime = new Date();
-	messageTime.getHours();
-	messageTime.getMinutes();
-	messageTime.getSeconds();
+	var hour = messageTime.getHours();
+	var minutes = messageTime.getMinutes();
+	messageTime = hour + ":" + minutes;
 	var messageTemplate = Handlebars.templates.message;
-	console.log(messageTime);
-	console.log(messageText);
 	var newMessageHTML = messageTemplate ({
 		text : messageText,
 		time: messageTime
 	});
 	var chatContainer = document.querySelector('.comments');
-  chatContainer.insertAdjacentHTML('beforeend', newMessageHTML);
+	chatContainer.insertAdjacentHTML('beforeend', newMessageHTML);
 	document.getElementById('chat-text-input').value = " ";
 
 }

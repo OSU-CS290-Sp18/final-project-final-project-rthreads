@@ -25,8 +25,6 @@ app.set('view engine', 'handlebars');
 
 app.use(bodyParser.json());
 
-var messages = require('./messages');
-var scoreboards = require('./scoreboards');
 var header = require('./views/partials/header');
 var header2 = require('./views/partials/header2');
 var thread = require('./views/partials/thread');
@@ -35,8 +33,9 @@ app.get('/', function(req, res, next) {
     var games = mongoDB.collection('nbaGames');
     var messages = mongoDB.collection('messages');
     games.find().toArray(function (err, nbaGames) {
-        if (err) {
-            res.status(500).send("Error fetching games from DB");
+    	messages.find().toArray(function (err, messages) {
+    	if (err) {
+            res.status(500).send("Error fetching games/messages from DB");
         }
 
         else {
@@ -44,9 +43,10 @@ app.get('/', function(req, res, next) {
                 scoreboards: [nbaGames[0]],
                 header: header,
                 header2: header2,
-                messages: messages
+	    	messages: messages
             });
         }
+    });
     });
 });
 
@@ -56,10 +56,11 @@ app.get('/nfl', function (req, res, next) {
     var games = mongoDB.collection('nflGames');
     var messages = mongoDB.collection('messages');
     games.find().toArray(function (err, nflGames) {
+    	messages.find().toArray(function (err, messages) {
         if (err) {
-            res.status(500).send("Error fetching games from DB");
+            res.status(500).send("Error fetching games/messages from DB");
         }
-
+	
         else {
             res.status(200).render('homePage', {
                 scoreboards: nflGames,
@@ -68,13 +69,15 @@ app.get('/nfl', function (req, res, next) {
             });
         }
     });
+    });
 });
 
 app.get('/nba', function (req, res, next) {
     var games = mongoDB.collection('nbaGames');
     var messages = mongoDB.collection('messages');
     games.find().toArray(function (err, nbaGames) {
-        if (err) {
+       messages.find().toArray(function (err, messages) {
+       if (err) {
             res.status(500).send("Error fetching games from DB");
         }
 
@@ -86,13 +89,15 @@ app.get('/nba', function (req, res, next) {
             });
         }
     });
+    });
 });
 
 app.get('/mlb', function (req, res, next) {
     var games = mongoDB.collection('mlbGames');
     var messages = mongoDB.collection('messages');
     games.find().toArray(function (err, mlbGames) {
-        if (err) {
+    	messages.find().toArray(function (err, messages) {
+	if (err) {
             res.status(500).send("Error fetching games from DB");
         }
 
@@ -104,13 +109,15 @@ app.get('/mlb', function (req, res, next) {
             });
         }
     });
+    });
 });
 
 app.get('/mls', function (req, res, next) {
     var games = mongoDB.collection('mlsGames');
     var messages = mongoDB.collection('messages');
     games.find().toArray(function (err, mlsGames) {
-        if (err) {
+       messages.find().toArray(function (err, messages) {
+       if (err) {
             res.status(500).send("Error fetching games from DB");
         }
 
@@ -122,13 +129,15 @@ app.get('/mls', function (req, res, next) {
             });
         }
     });
+    });
 });
 
 app.get('/nhl', function (req, res, next) {
     var games = mongoDB.collection('nhlGames');
     var messages = mongoDB.collection('messages');
     games.find().toArray(function (err, nhlGames) {
-        if (err) {
+       messages.find().toArray(function (err, messages){
+       if (err) {
             res.status(500).send("Error fetching games from DB");
         }
         else {
@@ -138,6 +147,7 @@ app.get('/nhl', function (req, res, next) {
                 messages: messages
             });
         }
+    });
     });
 });
 
@@ -149,11 +159,10 @@ app.use('*', function (req, res, next) {
 
 /*
 app.post('/', function (req, res, next) {
-    var message = req.params.person.toLowerCase();
-    if (req.body && req.body.caption && req.body.photoURL) {
+    if (req.body && req.body.text) {
         var photo = {
-            caption: req.body.caption,
-            photoURL: req.body.photoURL
+            text: req.body.text,
+            time: req.body.photoURL
         };
         var peopleCollection = mongoDB.collection('people');
         peopleCollection.updateOne(
