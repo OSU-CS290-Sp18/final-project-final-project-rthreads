@@ -82,24 +82,45 @@ function parseScoreboardElem(scoreboardElem) {
 	return scoreboard;
 }
 
+function sendMessage() {
+	var text = document.getElementById('chat-text-input').value.trim();
+	if(!text) {
+		alert("Please enter a message, unless you are a Warriors fan...");
+	} else {
 
+	var time = new Date();
+	var hour = time.getHours();
+	var minutes = time.getMinutes();
+	time = hour + ":" + minutes;
 
+	var request = new XMLHttpRequest();
+	var url = "/";
 
-function insertNewMessage(){
-	var messageText = document.getElementById('chat-text-input').value;
-	var messageTime = new Date();
-	var hour = messageTime.getHours();
-	var minutes = messageTime.getMinutes();
-	messageTime = hour + ":" + minutes;
-	var messageTemplate = Handlebars.templates.message;
-	var newMessageHTML = messageTemplate ({
-		text : messageText,
-		time: messageTime
+	request.open("POST", url);
+
+	var requestBody = JSON.stringify({
+		text: text,
+		time: time
 	});
-	var chatContainer = document.querySelector('.comments');
-	chatContainer.insertAdjacentHTML('beforeend', newMessageHTML);
-	document.getElementById('chat-text-input').value = " ";
 
+	request.addEventListener('load', function (event) {
+		if (event.target.status === 200) {
+			var messageTemplate = Handlebars.templates.message;
+			var newMessageHTML = messageTemplate({
+				text: text,
+				time: time
+			});
+		var chatContainer = document.querySelector('.comments');
+		chatContainer.insertAdjacentHTML('beforeend', newMessageHTML);
+		} else {
+			alert("Error storing message: " + event.target.response);
+		}
+
+	});
+	request.setRequestHeader('Content-Type', 'application/json');
+	request.send(requestBody);
+	console.log(requestBody);
+	}
 }
 
 window.addEventListener('DOMContentLoaded', function () {
@@ -124,7 +145,7 @@ var searchInput = document.getElementById('navbar-search-input');
 	}
 
 	if (chatAccept) {
-		chatAccept.addEventListener('click', insertNewMessage);
+		chatAccept.addEventListener('click', sendMessage);
 	}
 
 	if (closeButton) {

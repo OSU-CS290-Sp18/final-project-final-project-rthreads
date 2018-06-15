@@ -151,26 +151,17 @@ app.get('/nhl', function (req, res, next) {
     });
 });
 
-app.use('*', function (req, res, next) {
-	res.status(404).render('404', {
-		header: header
-	});
-});
-
-/*
 app.post('/', function (req, res, next) {
-    if (req.body && req.body.text) {
-        var photo = {
+	if (req.body && req.body.text && req.body.time) {
+        var message = {
             text: req.body.text,
-            time: req.body.photoURL
+            time: req.body.time
         };
-        var peopleCollection = mongoDB.collection('people');
-        peopleCollection.updateOne(
-            { personId: person },
-            { $push: { photos: photo } },
+        var messagesCollection = mongoDB.collection('messages');
+        messagesCollection.insertOne(message,
             function (err, result) {
                 if (err) {
-                    res.status(500).send("Error inserting photo into DB.")
+                    res.status(500).send("Error inserting message into DB.")
                 } else {
                     console.log("== mongo insert result:", result);
                     if (result.matchedCount > 0) {
@@ -182,10 +173,18 @@ app.post('/', function (req, res, next) {
             }
         );
     } else {
-        res.status(400).send("Request needs a JSON body with caption and photoURL.")
+        res.status(400).send("Request needs a JSON body with text")
     }
 });
-*/
+
+
+
+
+app.use('*', function (req, res, next) {
+	res.status(404).render('404', {
+		header: header
+	});
+});
 
 MongoClient.connect(mongoURL, function (err, client) {
     if (err) {
